@@ -1,23 +1,43 @@
+from tkinter import *
+from tkinter import ttk
 import speech_recognition as sr
 import webbrowser
 import pyttsx3
 import time
-
+from GUI import GUI
+from wakeup_2 import UP
 
 # Text To Speech
 
 eng = pyttsx3.init()
 voices = eng.getProperty('voices')
-eng.setProperty('voice', voices[2].id)
+eng.setProperty('voice', voices[0].id)
 
 # High priorty commands
 
 WAKE_UP = ["on", "wake up"]
 TERMINATE = ["shut down", "terminate", "quit"]
-CANCEL = ["cancel", "back"]
-
+CANCEL = ["cancel", "back", "stand"]
 
 def wake_up():
+
+    # root = Tk()
+    # root.title('Vlad')
+    # root.iconbitmap('mic.ico')
+
+    # style = ttk.Style()
+    # style.theme_use('winnative')
+
+    # label_txt = StringVar()
+    # label_txt.set('Vlad')
+    # label1 = ttk.Label(root, textvariable = label_txt)
+    # label1.grid(row=0, column=0)
+
+    print("Hi I'm Vlad")
+    # label_txt.set("Hi I'm Vlad")
+    eng.say('Hi I am Vlad')
+    eng.runAndWait()
+
     while True:
 
         r = sr.Recognizer()
@@ -28,66 +48,49 @@ def wake_up():
 
             try:
                 print(r.recognize_google(audio))
+                # label_txt.set(r.recognize_google(audio))
                 if r.recognize_google(audio) in WAKE_UP:
                     print("Up")
+                    # label_txt.set("Up")
                     eng.say('Up')
                     eng.runAndWait()
 
-                    r2 = sr.Recognizer()
-
-                    with sr.Microphone() as source2:
-                        r.adjust_for_ambient_noise(source2)
-                        audio2 = r2.listen(source2, timeout= 5)
-
-                    try:
-                        cmd = r2.recognize_google(audio2)
-
-                        print(cmd)
-                        eng.say(cmd)
-                        eng.runAndWait()
-
-                        if cmd is 'play music':
-                            webbrowser.open('https://play.anghami.com/mymusic/')
-
-                        elif cmd.endswith('anghami'):
-                            webbrowser.open('https://play.anghami.com/search/'+ cmd[5:-10])
-
-                        elif cmd.startswith('open'):
-                            webbrowser.open('https://www.%s.com/' % cmd[5:])
-
-                        else:
-                            pass
-
-                    except sr.UnknownValueError:
-                        eng.say("I'm sorry, I couldn't understand you")
-                        eng.runAndWait()
-                        print("I'm sorry, I couldn't understand you")
-
-                    except sr.RequestError:
-                        eng.say("I'm sorry, I couldn't reach google")
-                        eng.runAndWait()
-                        print("I'm sorry, I couldn't reach google")
-
+                    UP()
+                    
+                    eng.say("Stand by mode")
+                    eng.runAndWait()
+                    print("Stand by mode...")
+                    # label_txt.set("Stand by mode...")
 
                 elif r.recognize_google(audio) in TERMINATE:
                     eng.say("Shutting down")
                     eng.runAndWait()
                     print("Shutting down...")
-                    break
+                    # label_txt.set("Shutting down...")
+                    exit(0)
 
                 elif r.recognize_google(audio) in CANCEL:
                     eng.say("Stand by mode")
                     eng.runAndWait()
                     print("Stand by mode...")
+                    # label_txt.set("Stand by mode...")
                     pass
+
+                elif ("terminal" in r.recognize_google(audio).lower())
+                        or ("criminal" in r.recognize_google(audio).lower()):
+                    GUI()
+                    print('Back to Vlad')
+                    # label_txt.set('Back to Vlad')
+                    eng.say("Back to Vlad")
+                    eng.runAndWait()
 
             except sr.UnknownValueError:
                 print("Listening to the magic words: 'Wake up ' or 'Shut down'")
+                # label_txt.set("Listening to the magic words: 'Wake up ' or 'Shut down'")
 
             except sr.RequestError:
                 eng.say("I'm sorry, I couldn't reach google")
                 eng.runAndWait()
                 print("I'm sorry, I couldn't reach google")
-
-if __name__ == '__main__':
-    wake_up()
+                # label_txt.set("I'm sorry, I couldn't reach google")
+    # root.mainloop()
