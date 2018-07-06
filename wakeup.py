@@ -47,9 +47,13 @@ def wake_up():
             audio = r.listen(source, timeout= None)
 
             try:
-                print(r.recognize_google(audio))
+
+                order = r.recognize_google(audio).lower()
+
+
+                print(order)
                 # label_txt.set(r.recognize_google(audio))
-                if r.recognize_google(audio) in WAKE_UP:
+                if order in WAKE_UP:
                     print("Up")
                     # label_txt.set("Up")
                     eng.say('Up')
@@ -62,22 +66,21 @@ def wake_up():
                     print("Stand by mode...")
                     # label_txt.set("Stand by mode...")
 
-                elif r.recognize_google(audio) in TERMINATE:
+                elif order in TERMINATE:
                     eng.say("Shutting down")
                     eng.runAndWait()
                     print("Shutting down...")
                     # label_txt.set("Shutting down...")
                     exit(0)
 
-                elif r.recognize_google(audio) in CANCEL:
+                elif order in CANCEL:
                     eng.say("Stand by mode")
                     eng.runAndWait()
                     print("Stand by mode...")
                     # label_txt.set("Stand by mode...")
                     pass
 
-                elif ("terminal" in r.recognize_google(audio).lower())
-                        or ("criminal" in r.recognize_google(audio).lower()):
+                elif ("terminal" in order) or ("criminal" in order):
                     GUI()
                     print('Back to Vlad')
                     # label_txt.set('Back to Vlad')
