@@ -8,7 +8,6 @@ import os
 os.environ['TCL_LIBRARY'] = "C:\\Users\\win8\\AppData\\Local\\Programs\\Python\\Python36-32\\tcl\\tcl8.6"
 os.environ['TK_LIBRARY'] = "C:\\Users\\win8\\AppData\\Local\\Programs\\Python\\Python36-32\\tcl\\tk8.6"
 
-
 include_files = ['microphone.png',
 			'mic.ico',
 			'chime1.mp3',
@@ -19,10 +18,10 @@ include_files = ['microphone.png',
 
 
 excludes = ['']
-packages = ["pygame", "speech_recognition", "webbrowser", "tkinter"]
+packages = ["pygame", "speech_recognition", "webbrowser","tkinter", "pyttsx3"]
 
-setup(name = 'cVlad',
-	version = '0.1',
+setup(name = 'Vlad',
+	version = '1.1',
 	description = 'VA',
 	options = {
 	"build_exe": {
@@ -33,6 +32,10 @@ setup(name = 'cVlad',
 	    'include_msvcr': True,
 		}
 	},
-	executables = [Executable("cVlad.py")]
+	executables = [Executable(script="main.py",
+							  targetName='Vlad.exe',
+							  icon='mic.ico'),
+
+				   ]
 
 	)

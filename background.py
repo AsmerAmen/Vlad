@@ -5,7 +5,7 @@ import webbrowser
 import pyttsx3
 import time
 from GUI import GUI
-from wakeup_2 import UP
+from Vlad_up import UP
 
 # Text To Speech
 
@@ -19,7 +19,7 @@ WAKE_UP = ["on", "wake up"]
 TERMINATE = ["shut down", "terminate", "quit"]
 CANCEL = ["cancel", "back", "stand"]
 
-def wake_up():
+def background():
 
     # root = Tk()
     # root.title('Vlad')
@@ -56,15 +56,24 @@ def wake_up():
                 if order in WAKE_UP:
                     print("Up")
                     # label_txt.set("Up")
-                    eng.say('Up')
+                    eng.say('I am Up')
                     eng.runAndWait()
 
                     UP()
                     
-                    eng.say("Stand by mode")
+                    eng.say("Going to Stand by mode")
                     eng.runAndWait()
                     print("Stand by mode...")
                     # label_txt.set("Stand by mode...")
+
+
+                elif order.startswith("search google for"):
+                    query = order[17:]
+                    webbrowser.open('http://google.com/search?q=' + query)
+                    print("Searching Google for"+ query)
+                    # label_txt.set("Up")
+                    eng.say("Searching Google for"+ query)
+                    eng.runAndWait()
 
                 elif order in TERMINATE:
                     eng.say("Shutting down")
@@ -80,7 +89,7 @@ def wake_up():
                     # label_txt.set("Stand by mode...")
                     pass
 
-                elif ("terminal" in order) or ("criminal" in order):
+                elif ("terminal" in order) or ("criminal" in order) or ("permanent" in order) or ("birmingham" in order):
                     GUI()
                     print('Back to Vlad')
                     # label_txt.set('Back to Vlad')

@@ -12,7 +12,7 @@ voices = eng.getProperty('voices')
 eng.setProperty('voice', voices[2].id)
 
 
-CANCEL = ["cancel", "back", "stand"]
+CANCEL = ["cancel", "back", "stand by"]
 TERMINATE = ["shut down", "terminate", "quit"]
 
 r2 = sr.Recognizer()
@@ -27,8 +27,8 @@ def UP():
         try:
             cmd = r2.recognize_google(audio2)
 
-            print(cmd)
-            eng.say(cmd)
+            print("I Think you said " + cmd)
+            eng.say("I Think you said " + cmd)
             eng.runAndWait()
 
             cmd = cmd.lower()
@@ -40,7 +40,15 @@ def UP():
                 eng.say("Shutting down")
                 eng.runAndWait()
                 print("Shutting down...")
-                exit(0)        
+                exit(0)
+
+            elif cmd.startswith("search google for"):
+                query = cmd[17:]
+                webbrowser.open('http://google.com/search?q=' + query)
+                print("Searching Google for" + query)
+                # label_txt.set("Up")
+                eng.say("Searching Google for" + query)
+                eng.runAndWait()
 
             elif cmd is "play music":
                 webbrowser.open('https://play.anghami.com/mymusic/')
@@ -57,6 +65,9 @@ def UP():
                     webbrowser.open('https://keep.google.com/keep')
                 elif 'google drive' in cmd:
                     webbrowser.open('https://drive.google.com/drive')
+                elif 'massenger' in cmd:
+                    webbrowser.open('https://www.facebook.com/messages')
+
                 else:
                     webbrowser.open('https://www.%s.com/' % cmd[5:])
 
@@ -108,6 +119,3 @@ def UP():
             eng.say("I'm sorry, I couldn't reach google")
             eng.runAndWait()
             print("I'm sorry, I couldn't reach google")
-
-    
-

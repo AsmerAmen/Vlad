@@ -1,11 +1,10 @@
 from GUI import GUI
-from wakeup import wake_up
+from background import background
 
-import threading
-from threading import Thread
-
+# import threading
+# from threading import Thread
 
 if __name__ == '__main__':
     # Thread(target= GUI).start()
     # Thread(target= wake_up).start()
-    wake_up()
+    background()

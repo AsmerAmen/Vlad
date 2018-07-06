@@ -47,7 +47,7 @@ def GUI():
 
                 if message in ["off", "terminal off",  "terminal of"]:
                     root.destroy()
-
+                    return
                 entry1.focus()
                 entry1.delete(0, END)
                 entry1.insert(0, message)
