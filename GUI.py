@@ -3,12 +3,14 @@ from tkinter import ttk
 import webbrowser
 import speech_recognition as sr
 from pygame import mixer
+from Vlad_up import UP
+
 
 def GUI():
     # GUI
 
     root = Tk()
-    root.title('Vlad')
+    root.title('Thursday')
     root.iconbitmap('mic.ico')
 
     style = ttk.Style()
@@ -51,20 +53,8 @@ def GUI():
                 entry1.focus()
                 entry1.delete(0, END)
                 entry1.insert(0, message)
-
-
                 
-                if btn2.get() == 'google':
-                    webbrowser.open('http://google.com/search?q=' + message)
-
-                elif btn2.get() == 'ytb':
-                    webbrowser.open('https://www.youtube.com/results?search_query=' + message)
-
-                elif btn2.get() == 'anghami':
-                    webbrowser.open('https://play.anghami.com/search/' + message)
-
-                else:
-                    pass
+                UP(message)
 
             except sr.UnknownValueError:
                 print('Google Speech Recognition could not understand audio')
@@ -80,38 +70,12 @@ def GUI():
 
     def callback():
 
-        if btn2.get() == 'google' and entry1.get() != '':
-            webbrowser.open('http://google.com/search?q=' + entry1.get())
-
-        elif btn2.get() == 'duck' and entry1.get() != '':
-            webbrowser.open('http://duckduckgo.com/?q=' + entry1.get())
-
-        elif btn2.get() == 'amz' and entry1.get() != '':
-            webbrowser.open('https://amazon.com/s/?url=search-alias%3Dstripbooks&field-keywords=' + entry1.get())
-
-        elif btn2.get() == 'ytb' and entry1.get() != '':
-            webbrowser.open('https://www.youtube.com/results?search_query=' + entry1.get())
-
-        elif btn2.get() == 'anghami' and entry1.get() != '':
-            webbrowser.open('https://play.anghami.com/search/' + urllib.parse.entry1.get())
-
-        else:
-            pass
+        UP(entry1.get())
 
 
     def get(event):
 
-        if btn2.get() == 'google' and entry1.get() != '':
-            webbrowser.open('http://google.com/search?q=' + entry1.get())
-
-        elif btn2.get() == 'ytb' and entry1.get() != '':
-            webbrowser.open('https://www.youtube.com/results?search_query=' + entry1.get())
-
-        elif btn2.get() == 'anghami' and entry1.get() != '':
-            webbrowser.open('https://play.anghami.com/search/' + urllib.parse.entry1.get())
-
-        else:
-            pass
+        UP(entry1.get())
 
 
     def buttonClick():

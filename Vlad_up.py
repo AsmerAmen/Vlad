@@ -3,13 +3,15 @@ import webbrowser
 import pyttsx3
 import time
 
+from commands import *
+
 import os, subprocess
 
 # Text To Speech
 
 eng = pyttsx3.init()
 voices = eng.getProperty('voices')
-eng.setProperty('voice', voices[2].id)
+eng.setProperty('voice', voices[0].id)
 
 
 CANCEL = ["cancel", "back", "stand by"]
@@ -17,105 +19,57 @@ TERMINATE = ["shut down", "terminate", "quit"]
 
 r2 = sr.Recognizer()
 
-def UP():
-    while True:
+def UP(cmd):
+    # while True:
         
-        with sr.Microphone() as source2:
-            r2.adjust_for_ambient_noise(source2)
-            audio2 = r2.listen(source2, timeout= None)
+        # with sr.Microphone() as source2:
+        #     r2.adjust_for_ambient_noise(source2)
+        #     audio2 = r2.listen(source2, timeout= None)
 
-        try:
-            cmd = r2.recognize_google(audio2)
+        # try:
+        #     cmd = r2.recognize_google(audio2)
 
-            print("I Think you said " + cmd)
-            eng.say("I Think you said " + cmd)
-            eng.runAndWait()
+    print("I Think you said " + cmd)
+    eng.say("I Think you said " + cmd)
+    eng.runAndWait()
 
-            cmd = cmd.lower()
+    # cmd = cmd.lower()
 
-            if cmd in CANCEL:
-                    break
+    if cmd in CANCEL:
+        return
 
-            elif cmd in TERMINATE:
-                eng.say("Shutting down")
-                eng.runAndWait()
-                print("Shutting down...")
-                exit(0)
+    elif cmd in TERMINATE:
+        terminate(eng)
+        
+    elif cmd.startswith("search google for"):
+        query = cmd[17:]
+        search_google(query)
 
-            elif cmd.startswith("search google for"):
-                query = cmd[17:]
-                webbrowser.open('http://google.com/search?q=' + query)
-                print("Searching Google for" + query)
-                # label_txt.set("Up")
-                eng.say("Searching Google for" + query)
-                eng.runAndWait()
+    elif cmd.startswith("play"):
+        query = cmd.replace('play ', '').replace(' on anghami', '')
+        play_music(query)
 
-            elif cmd is "play music":
-                webbrowser.open('https://play.anghami.com/mymusic/')
+    elif cmd.startswith("open"):
+        website = cmd.replace('open ', '')
+        open_on_browser(website)
+        
+    elif cmd.startswith("start"):
+        app = cmd.replace('start ', '')
+        start_app(cmd[6:])
 
-            elif cmd.startswith("play") and cmd.endswith("anghami"):
-                webbrowser.open('https://play.anghami.com/search/'+ cmd[5:-10])
+    elif cmd.startswith("go to"):
+        directory = cmd.replace('go to ', '')
+        goto_dir(directory)
 
-            elif cmd.startswith("open"):
-                
-                # if cmd.endswith("online"):
-                if ('mail'in cmd) or ('e-mail'in cmd) or ('gmail'in cmd):
-                    webbrowser.open('https://mail.google.com/mail/u/0/#inbox')
-                elif 'google keep' in cmd:
-                    webbrowser.open('https://keep.google.com/keep')
-                elif 'google drive' in cmd:
-                    webbrowser.open('https://drive.google.com/drive')
-                elif 'massenger' in cmd:
-                    webbrowser.open('https://www.facebook.com/messages')
+    else:
+        pass
 
-                else:
-                    webbrowser.open('https://www.%s.com/' % cmd[5:])
+        # except sr.UnknownValueError:
+        #     eng.say("I'm sorry, I couldn't understand you")
+        #     eng.runAndWait()
+        #     print("I'm sorry, I couldn't understand you")
 
-            elif cmd.startswith("start"):
-                if 'media player' in cmd:
-                    os.system("start wmplayer")
-                elif 'chrome' in cmd:
-                     os.system("start chrome")
-                elif 'firefox' in cmd:
-                     os.system("start firefox")
-                elif 'command'in cmd:
-                    os.system("start cmd")
-
-            elif cmd.startswith("go to"):
-                if 'projects' in cmd:
-                    os.chdir("D:/Projects")
-                    os.system("start cmd")
-                    os.system("start .")
-
-                elif 'Google' in cmd:
-                    os.chdir("D:/way to google")
-                    os.system("start cmd")
-                    os.system("start .")
-
-                elif 'series' in cmd:
-                    os.chdir("E:/Series")
-                    os.system("start cmd")
-                    os.system("start .")
-
-                elif 'music' in cmd:
-                    os.chdir("E:/Music")
-                    os.system("start cmd")
-                    os.system("start .")
-
-                elif 'movies' in cmd:
-                    os.chdir("E:/Movies")
-                    os.system("start cmd")
-                    os.system("start .")
-
-            else:
-                pass
-
-        except sr.UnknownValueError:
-            eng.say("I'm sorry, I couldn't understand you")
-            eng.runAndWait()
-            print("I'm sorry, I couldn't understand you")
-
-        except sr.RequestError:
-            eng.say("I'm sorry, I couldn't reach google")
-            eng.runAndWait()
-            print("I'm sorry, I couldn't reach google")
+        # except sr.RequestError:
+        #     eng.say("I'm sorry, I couldn't reach google")
+        #     eng.runAndWait()
+        #     print("I'm sorry, I couldn't reach google")

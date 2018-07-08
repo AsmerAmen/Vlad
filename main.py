@@ -1,6 +1,4 @@
-from GUI import GUI
 from background import background
-
 # import threading
 # from threading import Thread
 
