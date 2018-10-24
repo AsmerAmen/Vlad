@@ -11,7 +11,7 @@ import os, subprocess
 
 eng = pyttsx3.init()
 voices = eng.getProperty('voices')
-eng.setProperty('voice', voices[0].id)
+eng.setProperty('voice', voices[5].id)
 
 
 CANCEL = ["cancel", "back", "stand by"]
@@ -55,12 +55,18 @@ def UP(cmd):
         
     elif cmd.startswith("start"):
         app = cmd.replace('start ', '')
-        start_app(cmd[6:])
+        start_app(app)
 
     elif cmd.startswith("go to"):
         directory = cmd.replace('go to ', '')
         goto_dir(directory)
 
+    elif ("greatest singer" in cmd) or ("best singer" in cmd):
+        eng.say("Abel The Weenknd Teesfye, fo sure.")
+        eng.runAndWait()
+        print("Abel The Weenknd Teesfye, fo sure.")
+    
+   
     else:
         pass
 

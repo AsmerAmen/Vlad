@@ -28,37 +28,31 @@ def open_on_browser(website):
 		webbrowser.open('https://www.%s.com/' % website)
 
 def start_app(app):
-	if 'media player' in app:
-		os.system("start wmplayer")
-	elif 'command'in app:
-		os.system("start cmd")
+	if 'kodi' in app:
+		os.system("kodi")
 	else:
 		os.system("start "+ app)
 
 def goto_dir(directory):
+
+	if 'home' in directory:
+		os.system("nautilus ~")
+
 	if 'projects' in directory:
-		os.chdir("D:/Projects")
-		os.system("start cmd")
-		os.system("start .")
+		os.system("nautilus /mnt/Asmer/Projects")
 
 	elif 'Google' in directory:
-		os.chdir("D:/way to google")
-		os.system("start cmd")
-		os.system("start .")
+		os.system("nautilus /mnt/Asmer/'Way to Google'")
+		
 	elif 'series' in directory:
-		os.chdir("E:/Series")
-		os.system("start cmd")
-		os.system("start .")
+		os.system("nautilus /mnt/Asmer/Series")
+		
 	elif 'music' in directory:
-		os.chdir("E:/Music")
-		os.system("start cmd")
-		os.system("start .")
+		os.system("nautilus /mnt/Asmer/Music")
 
 	elif 'movies' in directory:
-		os.chdir("E:/Movies")
-		os.system("start cmd")
-		os.system("start .")
-    
+		os.system("nautilus /mnt/Asmer/Movies")
+		
 
 def play_music(music):
 	webbrowser.open('https://play.anghami.com/search/'+ music)

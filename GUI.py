@@ -11,10 +11,12 @@ def GUI():
 
     root = Tk()
     root.title('Thursday')
-    root.iconbitmap('mic.ico')
+    img= PhotoImage(file='microphone.png')
+    root.tk.call('wm', 'iconphoto', root._w, img)
+    # root.iconbitmap('/mnt/Asmer/Projects/Python/Vlad/mic.ico')
 
     style = ttk.Style()
-    style.theme_use('winnative')
+    style.theme_use('classic')
 
     photo = PhotoImage(file="microphone.png").subsample(15, 15)
 
@@ -23,7 +25,7 @@ def GUI():
     entry1 = ttk.Entry(root, width=40)
     entry1.grid(row=0, column=1, columnspan=4)
 
-    btn2 = StringVar()
+    # btn2 = StringVar()
 
 
 
@@ -93,17 +95,17 @@ def GUI():
 
     entry1.bind('<Return>', get)
 
-    MyButton1 = ttk.Button(root, text='Search', width=10, command=callback)
+    MyButton1 = ttk.Button(root, text='Process', width=10, command=callback)
     MyButton1.grid(row=0, column=6)
 
-    MyButton2 = ttk.Radiobutton(root, text='Google', value='google', variable=btn2)
-    MyButton2.grid(row=1, column=1, sticky=W)
+    # MyButton2 = ttk.Radiobutton(root, text='Google', value='google', variable=btn2)
+    # MyButton2.grid(row=1, column=1, sticky=W)
 
-    MyButton5 = ttk.Radiobutton(root, text='Ytb', value='ytb', variable=btn2)
-    MyButton5.grid(row=1, column=2, )
+    # MyButton5 = ttk.Radiobutton(root, text='Ytb', value='ytb', variable=btn2)
+    # MyButton5.grid(row=1, column=2, )
 
-    MyButton6 = ttk.Radiobutton(root, text='anghami', value='anghami', variable=btn2)
-    MyButton6.grid(row=1, column=3, sticky=E)
+    # MyButton6 = ttk.Radiobutton(root, text='anghami', value='anghami', variable=btn2)
+    # MyButton6.grid(row=1, column=3, sticky=E)
 
     MyButton6 = Button(root, image=photo, command=buttonClick, bd=0, activebackground='#c1bfbf', overrelief='groove',
                        relief='sunken')
@@ -111,5 +113,5 @@ def GUI():
 
     entry1.focus()
     root.wm_attributes('-topmost', 1)
-    btn2.set('google')
+    # btn2.set('google')
     root.mainloop()

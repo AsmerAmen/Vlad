@@ -10,7 +10,7 @@ from commands import terminate
 
 # Text To Speech
 
-eng = pyttsx3.init()
+eng = pyttsx3.init('espeak')
 voices = eng.getProperty('voices')
 eng.setProperty('voice', voices[0].id)
 
@@ -62,6 +62,18 @@ def background():
                     print('Back to Thursday')
                     eng.say("Back to Thursday")
                     eng.runAndWait()
+
+                elif ("your name" in order) and (order.startswith("what") or order.startswith("what's")):
+                    eng.say("My Name is Thursday.")
+                    eng.runAndWait()
+                    print("My Name is Thursday.")
+     
+                elif ("your name" in order) and (order.startswith("why")):
+                    eng.say("Because Tony Stark has already used 'Friday'. and The Weeknd's music rocks.")
+                    eng.runAndWait()
+                    print("Beacuse Tony Stark already has used 'Friday' and The Weeknd's music rocks.")
+    
+
 
             except sr.UnknownValueError:
                 print("Listening to the magic words: 'Wake up ' or 'Shut down'")
